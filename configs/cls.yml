@@ -1,0 +1,47 @@
+TASK: 'cls'
+
+DATA_DIR: 'data/train_images'
+FOLD_DF: 'data/folds/seg_10fold_0.csv'
+PSEUDO_FOLD_DF: 'pseudo-labels/pseudo_only_0.91763.csv'
+TRAIN_ALL: False
+SAMPLER: 'balance'
+
+TRAIN_DIR: '_results/CLS_eff-b1_fold0_pseudo_0.91763'
+
+PARALLEL: False
+DEBUG_IMAGE: False
+DEBUG: False
+PRINT_EVERY: 10
+
+TRAIN:
+  BATCH_SIZE: 16
+  NUM_WORKERS: 8
+  NUM_EPOCHS: 30
+
+EVAL:
+  BATCH_SIZE: 32
+  NUM_WORKERS: 8
+
+DATA:
+  IMG_H: 256
+  IMG_W: 1600
+
+MODEL:
+  NAME: 'efficientnet-b1'
+  ADD_FC: False
+
+LOSS:
+  NAME: 'bce'
+  FINETUNE_EPOCH: 100
+  FINETUNE_LOSS: 'bce'
+
+OPTIMIZER:
+  NAME: 'adam'
+  LR: 0.001
+  PARAMS:
+
+SCHEDULER:
+  NAME: 'multi_step'
+  PARAMS:
+    milestones: [10]
+    gamma: 0.1
